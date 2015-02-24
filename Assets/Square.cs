@@ -4,8 +4,8 @@ using System;
 
 public class Square{
 	//x and y positions
-	public float x;
-	public float y;
+	public int x;
+	public int y;
 	//true mean it is a wall, false is not a wall
 	public bool isWall;
 	//cost to get to this square from an adjacent square

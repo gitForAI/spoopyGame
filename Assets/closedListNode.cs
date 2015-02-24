@@ -4,13 +4,13 @@ using System.Collections;
 //nodes to put in closed list that contain cost so far and current square
 public class closedListNode {
 	//current square
-	Square currSquare;
+	public Square currSquare;
 	//cost so far
-	int cost;
+	public int soFar;
 
-	public closedListNode(Square curr, int soFar){
+	public closedListNode(Square curr, int cost){
 		currSquare = curr;
-		cost = soFar;
+		soFar = cost;
 	}
 	// Use this for initialization
 	void Start () {
