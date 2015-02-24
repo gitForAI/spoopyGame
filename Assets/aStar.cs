@@ -12,19 +12,24 @@ public class aStar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Debug.Log ("The human starts at position (0,0). The path should take the human to position (3,4)." +
+			" The console output shows that the A* algorithm that we implement generates a reasonable path to the goal by showing the x and y coordinates" +
+			" at each step of the path. The human ends at position (3,4) graphically (but this is also printed" +
+			" since this is difficult to eyeball).");
+		//Debug.Log ();
 		if (generateSquares.grid != null) {
 			List<closedListNode> path = pathFind (generateSquares.grid [3, 4]);
-			//Debug.Log ("path count = " + path.Count);
+			Debug.Log ("Human start: x = " + Human.x + ", y = " + Human.y);
+			Debug.Log ("PATH:");
 			foreach (var node in path) {
-				Debug.Log ("PATH x = " + node.currSquare.x + ", y = " + node.currSquare.y);
+				Debug.Log ("x = " + node.currSquare.x + ", y = " + node.currSquare.y);
 				Human.x = node.currSquare.x;
 				Human.y = node.currSquare.y;
-				gameObject.transform.position = (node.currSquare.x, transform.position.y, node.currSquare.y);
+				gameObject.transform.position = new Vector3((float)node.currSquare.x * 10, transform.position.y, (float)node.currSquare.y * 10);
 
 			}
 		}
-		//Debug.Log ("transform x = " + gameObject.transform.position.x + ", y = " + gameObject.transform.position.y + ", z = " + gameObject.transform.position.z);
-		Debug.Log ("new human x = " + Human.x + ", y = " + Human.y);
+		Debug.Log ("Human final: x = " + Human.x + ", y = " + Human.y);
 	}
 	
 	// Update is called once per frame
@@ -34,7 +39,6 @@ public class aStar : MonoBehaviour {
 
 	List<openListNode> getSuccessors(openListNode node, Square goalNode){
 		List<openListNode> successors = new List<openListNode>();
-		//Debug.Log ("successor x = " + node.x + ", successor y = " + node.y);
 		if (node.currSquare.x - 1 >= 0) {
 			successors.Add (new openListNode(generateSquares.grid[node.currSquare.x - 1, node.currSquare.y], node.costSoFar + generateSquares.grid[node.currSquare.x - 1, node.currSquare.y].cost, generateSquares.grid[node.currSquare.x - 1, node.currSquare.y].getHeuristic(goalNode)));
 		}
@@ -68,7 +72,6 @@ public class aStar : MonoBehaviour {
 
 	//main pathfinding algorithm
 	List<closedListNode> pathFind(Square goalNode){
-		//Debug.Log ("x = " + Human.x + ", y = " + Human.y);
 		//find node where human is
 		Square startNode = generateSquares.grid[Human.x, Human.y];
 		openListNode start = new openListNode (startNode, 0, startNode.getHeuristic (goalNode));
@@ -86,17 +89,13 @@ public class aStar : MonoBehaviour {
 		List<openListNode> startSuccessors = getSuccessors (start, goalNode);
 		//add successors of start node to open list
 		openList.AddRange (startSuccessors);
-
-		//GENERIC GOAL NODE COST - NEED TO CHANGE COST WHEN ADDING TO CLOSED LIST
-		//closedListNode goal = new closedListNode (goalNode, 0);
+	
 		bool goalReached = false;
 		int count = 0;
 
 		//while the closed list does not contain the goal node, do...
-		while (count < 1000) {
+		while (!goalReached) {
 			count++;
-			//Debug.Log ("closed count = " + closedList.Count + ", open count = " + openList.Count);
-			//Debug.Log ("sublist count = " +closedList[0].Count);
 			//check if goal is in closed list
 			foreach(var sublist in closedList){
 				foreach(var value in sublist){
@@ -134,31 +133,15 @@ public class aStar : MonoBehaviour {
 			Boolean addedToClosed = false;
 			foreach(var sublist in closedList){
 				openListNode lastNode = new openListNode(sublist[sublist.Count - 1].currSquare, sublist[sublist.Count - 1].soFar, -1);
-				//Debug.Log ("successor node size" + getSuccessors(lastNode, goalNode).Count);
-
-				Debug.Log("least cost coord" + leastCost.currSquare.x + " " + leastCost.currSquare.y);
-
 				List<openListNode> successor = getSuccessors(lastNode, goalNode);
 
-				//Debug.Log("successor count " + successor.Count);
-				/*foreach(var s in successor) {
-					Debug.Log("successor coord" + s.currSquare.x + " " + s.currSquare.y);
-				}*/
-
-				if(contain (successor, leastCost)){//getSuccessors(lastNode, goalNode).Contains(leastCost)){
-					Debug.Log ("adding to closed list");
-					Debug.Log ("last node x = " + sublist[sublist.Count - 1].currSquare.x + ", y = " + sublist[sublist.Count - 1].currSquare.y);
-					Debug.Log ("least cost x = " + leastCost.currSquare.x + ", y = " + leastCost.currSquare.y);
+				if(contain (successor, leastCost)){
 					sublist.Add(new closedListNode(leastCost.currSquare, sublist[sublist.Count - 1].soFar + leastCost.currSquare.cost));
 					addedToClosed = true;
 				} 
 			}
 			if(!addedToClosed){
-				Debug.Log ("adding new path");
-
 				List<closedListNode> newPath = leastCost.cameFrom;
-				/*newPath.Add(startClosed);
-				newPath.Add(new closedListNode(leastCost.currSquare, leastCost.currSquare.cost));*/
 				closedList.Add(newPath);
 			}
 			openList.AddRange(getSuccessors(leastCost, goalNode));
