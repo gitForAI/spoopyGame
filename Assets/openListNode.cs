@@ -3,26 +3,27 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-//nodes to put on open list that contain the square and the heuristic +
-//cost so far
+// Nodes to put on open list that contain all information needed about the node
 public class openListNode {
-	//current square value
+	// Square represented by node
 	public Square currSquare;
-	//cost so far
+	// Cost to get to this square/node so far
 	public int costSoFar;
-	//heuristic
+	// Prediction of how much it will cost to get to the goal from here
 	public int heuristic;
-	//heuristic + cost
+	// Heuristic + cost
 	public int heuristicCost;
-	//back path
+	// Back path
 	public List<closedListNode> cameFrom = new List<closedListNode>();
 
+	// Constructor
 	public openListNode(Square curr, int cost, int h){
 		currSquare = curr;
 		costSoFar = cost;
 		heuristic = h;
 		heuristicCost = costSoFar + heuristic;
 	}
+
 	// Use this for initialization
 	void Start () {
 	

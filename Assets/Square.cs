@@ -3,31 +3,26 @@ using System.Collections;
 using System;
 
 public class Square{
-	//x and y positions
+	// X and y positions
 	public int x;
 	public int y;
-	//true mean it is a wall, false is not a wall
+	// True means the square is a wall, false means the square is not a wall
 	public bool isWall;
-	//cost to get to this square from an adjacent square
+	// Cost to get to this square from an adjacent square
 	public int cost;
-	//predicted cost to get to goal node from this square
-	public int heuristic;
 
 	public Square(bool wall){
 		isWall = wall;
-		//set cost high if it's a wall
+		// Set cost high if square is a wall
 		if(isWall){
 			cost = 14;
 		}
 		else{
 			cost = 1;
 		}
-
-		heuristic = -1;
 	}
 
-	//manhattan distance prediction (should be really accurate right now 
-	//since we have a 5 x 5 plane with no walls...)
+	// Manhattan distance prediction (should be really accurate right now since we have a 5 x 5 plane with no walls...)
 	public int getHeuristic(Square goal){
 		return (int)(Math.Abs ((x - goal.x) + (y - goal.y)));
 	}

@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//nodes to put in closed list that contain cost so far and current square
+// Nodes to put in closed list that contain all information needed about node
 public class closedListNode {
-	//current square
+	// Square represented by this node
 	public Square currSquare;
-	//cost so far
+	// Cost to get to this square/node so far
 	public int soFar;
 
+	//Constructor
 	public closedListNode(Square curr, int cost){
 		currSquare = curr;
 		soFar = cost;

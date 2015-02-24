@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 
 public class Human : MonoBehaviour {
+	// Human's x and y position
 	public static int x;
 	public static int y;
 
@@ -13,18 +14,16 @@ public class Human : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//set x and y postion to value of square human is on
-		x = (int)Math.Floor (transform.position.x);
-		y = (int)Math.Floor (transform.position.z);
-
+		// Set x and y postion to value of square human is on;
+		// Make the units more readable and base them on the scale of the floor
 		if (transform.position.x >= 10) {
-			x = (int)(Math.Floor ((double)(Human.x / 10)));
+			x = (int)(Math.Floor ((double)(x / 10)));
 		}
 		else{
 			x = 0;
 		}
 		if(transform.position.z >= 10){
-			y = (int)(Math.Floor ((double)(Human.y / 10)));
+			y = (int)(Math.Floor ((double)(y / 10)));
 		}
 		else{
 			y = 0;
