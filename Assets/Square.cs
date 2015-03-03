@@ -15,7 +15,7 @@ public class Square{
 		isWall = wall;
 		// Set cost high if square is a wall
 		if(isWall){
-			cost = 14;
+			cost = 99999;
 		}
 		else{
 			cost = 1;
