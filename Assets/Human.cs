@@ -15,7 +15,8 @@ public class Human : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Set x and y postion to value of square human is on;
-		// Make the units more readable and base them on the scale of the floor
+		// Make the units more readable and base them on the scale of 
+		//the floor
 		if (transform.position.x >= 10) {
 			x = (int)(Math.Floor ((double)(x / 10)));
 		}

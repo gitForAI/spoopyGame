@@ -10,7 +10,8 @@ public class wallCube : MonoBehaviour {
 		x = (int)transform.position.x;
 		y = (int)transform.position.z;
 		// Set x and y postion to value of square cube is on;
-		// Make the units more readable and base them on the scale of the floor
+		// Make the units more readable and base them on the scale 
+		//of the floor
 		if (x >= 10) {
 			x = (int)(Math.Floor ((double)(x / 10)));
 		}
@@ -26,7 +27,8 @@ public class wallCube : MonoBehaviour {
 
 		for (int i=0; i<(int)generateSquares.xScale; i++) {
 			for(int j=0; j<(int)generateSquares.yScale; j++){
-				if(x == generateSquares.grid[i,j].x && y == generateSquares.grid[i,j].y){
+				if(x == generateSquares.grid[i,j].x && y == 
+				   generateSquares.grid[i,j].y){
 					generateSquares.grid[i,j].isWall = true;
 					generateSquares.grid[i,j].cost = 99999;
 					Debug.Log ("wall at x = " + x + ", y = " + y);

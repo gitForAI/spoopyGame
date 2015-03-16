@@ -4,7 +4,8 @@ using System.Collections;
 public class generateSquares : MonoBehaviour {
 	// Grid of squares
 	public static Square [,] grid;
-	// X and y size to be set dynamically by size of plane (floor) on game start
+	// X and y size to be set dynamically by size of plane (floor) 
+	//on game start
 	public static float xScale;
 	public static float yScale;
 

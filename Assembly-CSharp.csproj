@@ -46,9 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Action.cs" />
+     <Compile Include="Assets\HStateMachine.cs" />
      <Compile Include="Assets\Human.cs" />
      <Compile Include="Assets\Monster.cs" />
      <Compile Include="Assets\Square.cs" />
+     <Compile Include="Assets\State.cs" />
+     <Compile Include="Assets\StateMachine.cs" />
+     <Compile Include="Assets\Transition.cs" />
      <Compile Include="Assets\aStar.cs" />
      <Compile Include="Assets\closedListNode.cs" />
      <Compile Include="Assets\generateSquares.cs" />

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// Nodes to put in closed list that contain all information needed about node
+// Nodes to put in closed list that contain all information needed 
+//about node
+
 public class closedListNode {
 	// Square represented by this node
 	public Square currSquare;

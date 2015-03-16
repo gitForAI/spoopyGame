@@ -22,7 +22,7 @@ public class Square{
 		}
 	}
 
-	// Manhattan distance prediction (should be really accurate right now since we have a 5 x 5 plane with no walls...)
+	// Manhattan distance prediction
 	public int getHeuristic(Square goal){
 		return (int)(Math.Abs ((x - goal.x) + (y - goal.y)));
 	}

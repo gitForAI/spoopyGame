@@ -3,7 +3,9 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-// Nodes to put on open list that contain all information needed about the node
+// Nodes to put on open list that contain all information needed about 
+//the node
+
 public class openListNode {
 	// Square represented by node
 	public Square currSquare;
