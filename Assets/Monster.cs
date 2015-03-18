@@ -3,19 +3,29 @@ using System.Collections;
 using System;
 
 public class Monster : MonoBehaviour {
-	// X and y position of the monster
-	public static int x;
-	public static int y;
+	// Monster x and y position
+	public int x;
+	public int y;
+	// Boolean flag to tell monster if it should be moving
+	public bool shouldMove;
+	// Target to move to
+	public int targetX;
+	public int targetY;
+	//Action that holds where monster should move to
+	public Action moveTo;
+	// Object reference to allow call to pathfinding algorithm
+	public aStar path;
 
 	// Use this for initialization
 	void Start () {
-	
+		path = gameObject.GetComponent<aStar> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// Set monster's position to value of square monster is on;
-		// Make units more readable and base them on the scale of the floor
+		// Set x and y postion to value of square monster is on;
+		// Make the units more readable and base them on the scale of 
+		//the floor
 		if (transform.position.x >= 10) {
 			x = (int)(Math.Floor ((double)(x / 10)));
 		}
@@ -27,6 +37,10 @@ public class Monster : MonoBehaviour {
 		}
 		else{
 			y = 0;
+		}
+		// If boolean flag is set, move to the target square
+		if(shouldMove){
+
 		}
 	}
 }

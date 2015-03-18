@@ -3,22 +3,24 @@ using System.Collections.Generic;
 
 public class StateMachine : MonoBehaviour {
 
-	State initState;
-	State savedState;
-	State currState;
-	Transition entryTransition;
-	Transition exitTransition;
-	List<State> states;
-	Transition triggered;
-	int level;
+	public State initState;
+	public State savedState;
+	public State currState;
+	public List<Transition> transitions;
+	public Transition entryTransition;
+	public Transition exitTransition;
+	public List<State> states;
+	public Transition triggered;
+	public int level;
 
-	public StateMachine(State init, Transition enter, Transition exit,
+	public StateMachine(State init, List<Transition> tran, //Transition enter, Transition exit,
 	    List<State> States, int lev){
 		initState = init;
-		entryTransition = enter;
-		exitTransition = exit;
+		//entryTransition = enter;
+		//exitTransition = exit;
 		states = States;
 		level = lev;
+		transitions = tran;
 	}
 
 	// Use this for initialization

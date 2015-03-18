@@ -5,13 +5,28 @@ using System.Collections.Generic;
 using System;
 
 public class aStar : MonoBehaviour {
-	public static List<openListNode> openList = new List<openListNode>();
-	public static List<List<closedListNode>> closedList = new 
+	public List<openListNode> openList = new List<openListNode>();
+	public List<List<closedListNode>> closedList = new 
 		List<List<closedListNode>>();
+	public GameObject character;
+	public int startX;
+	public int startY;
 
 	// Use this for initialization
 	void Start () {
-
+		character = gameObject;
+		if (character.transform.position.x >= 10) {
+			startX = (int)(Math.Floor ((double)(character.transform.position.x / 10)));
+		}
+		else{
+			startX = 0;
+		}
+		if(character.transform.position.z >= 10){
+			startY = (int)(Math.Floor ((double)(character.transform.position.z / 10)));
+		}
+		else{
+			startY = 0;
+		}
 	}
 
 	// Update is called once per frame
@@ -19,7 +34,7 @@ public class aStar : MonoBehaviour {
 
 	}
 
-	public static void move(int x, int y){
+	public void move(int x, int y){
 		List<closedListNode> path = new List<closedListNode>();
 		if (generateSquares.grid != null) {
 			// Holds the path returned by A* and calls the main algorithm.
@@ -37,7 +52,7 @@ public class aStar : MonoBehaviour {
 
 	// Returns a list of successors to node and uses goalNode to find 
 	//the heuristic + cost of each successor.
-	public static List<openListNode> getSuccessors(openListNode node, Square goalNode){
+	public List<openListNode> getSuccessors(openListNode node, Square goalNode){
 		List<openListNode> successors = new List<openListNode>();
 		// Ensure that index is not out of range, then add node to successor list
 		if (node.currSquare.x - 1 >= 0) {
@@ -90,7 +105,7 @@ public class aStar : MonoBehaviour {
 	// Custom function to check if list contains node.
 	// Created because Unity's System.Contains function checks pointers, 
 	//and new pointers were created with nodes.
-	public static bool contain(List<openListNode> cln, openListNode oln) 
+	public bool contain(List<openListNode> cln, openListNode oln) 
 	{
 		foreach (var n in cln)
 		{
@@ -106,10 +121,9 @@ public class aStar : MonoBehaviour {
 	// Takes in a goal node
 	// Finds where object script is attached to is on the grid
 	// Performs A* algorithm until a path to the goalNode is found
-	public static List<closedListNode> pathFind(Square goalNode){
+	public List<closedListNode> pathFind(Square goalNode){
 		// Find start node
-		Square startNode = generateSquares.grid[(int)character.transform.position.x, 
-		      (int)character.transform.position.z];
+		Square startNode = generateSquares.grid[startX, startY];
 		// Create open and closed list nodes from the start node
 		openListNode start = new openListNode (startNode, 0, 
 		      startNode.getHeuristic (goalNode));

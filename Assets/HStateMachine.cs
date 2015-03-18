@@ -8,9 +8,14 @@ public class HStateMachine : MonoBehaviour {
 	public StateMachine initMachine;
 	public List<Action> actions;
 
-	public HStateMachine(List<StateMachine> mach, StateMachine init){
+	public HStateMachine(List<StateMachine> mach, StateMachine init, List<Action> act){
 		machines = mach;
 		initMachine = init;
+		actions = act;
+	}
+
+	public void update(){
+		
 	}
 
 	// Use this for initialization

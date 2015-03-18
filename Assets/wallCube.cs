@@ -31,7 +31,6 @@ public class wallCube : MonoBehaviour {
 				   generateSquares.grid[i,j].y){
 					generateSquares.grid[i,j].isWall = true;
 					generateSquares.grid[i,j].cost = 99999;
-					Debug.Log ("wall at x = " + x + ", y = " + y);
 				}
 			}
 		}

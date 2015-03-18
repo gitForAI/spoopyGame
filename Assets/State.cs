@@ -3,11 +3,11 @@ using System.Collections;
 
 public class State : MonoBehaviour {
 
-	Action entryAction;
-	Action exitAction;
-	Action duringAction;
-	Transition entryTransition;
-	Transition exitTransition;
+	public Action entryAction;
+	public Action exitAction;
+	public Action duringAction;
+	public Transition entryTransition;
+	public Transition exitTransition;
 
 	// Use this for initialization
 	void Start () {

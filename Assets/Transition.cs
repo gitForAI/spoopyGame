@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 public class Transition : MonoBehaviour {
 
-	State initState;
-	State targetState;
-	bool triggered;
-	StateMachine initMachine;
-	StateMachine targetMachine;
+	public State initState;
+	public State targetState;
+	public bool triggered;
+	public StateMachine initMachine;
+	public StateMachine targetMachine;
 
 	public Transition(State init, State target, StateMachine initial, StateMachine targ){
 		initState = init;

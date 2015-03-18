@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Action : MonoBehaviour {
+public class Condition : MonoBehaviour {
 
-	public virtual void Act(){
+	public virtual bool test(){
 
 	}
 
