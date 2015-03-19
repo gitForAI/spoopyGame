@@ -6,8 +6,16 @@ public class Human : MonoBehaviour {
 	// Human's x and y position
 	public int x;
 	public int y;
+	// Room number
+	public int roomNum;
+	// Stores exit node
+	public Square exitNode;
+	// Stores real exit for easier access later
+	public Square exit = generateSquares.grid[7,1];
+	// Tells if key has been picked up or not
+	public bool keyFound = false;
 	// Boolean flag to tell human if it should be moving
-	public bool shouldMove;
+	public bool shouldMove = false;
 	// Target where human should move to
 	public int targetX;
 	public int targetY;
@@ -20,18 +28,28 @@ public class Human : MonoBehaviour {
 	public HStateMachine machine;
 	// State machine for exploring
 	public StateMachine exploring;
+	// Action list for exploring
+	public List<Action> expAct;	
 	// State machine for running
 	public StateMachine running;
+	// Action list for running
+	public List<Action> runAct;
 	// State machine for exiting
 	public StateMachine exiting;
+	// Action list for exiting
+	public List<Action> exitAct;
 	// State for walking
-	public State walking;
+	public Patrol walking;
 	// State for running
 	public State runAway;
 	// State for afraid running
 	public State runScared;
 	// State for running to exit
 	public State goToExit;
+	// State for picking up key
+	public State getKey;
+	// State for storing exit
+	public State storeExit;
 	// Transition from explore to run
 	public Transition walkToRun;
 	// Transition from explore to run scared
@@ -50,6 +68,10 @@ public class Human : MonoBehaviour {
 	public Transition exitToRun;
 	//Transition from exit to run scared
 	public Transition exitToScared;
+	// Transition from walk to pick up key
+	public Transition walkToKey;
+	// Transition from walk to store exit
+	public Transition walkToStore;
 	// Action list
 	public List<Action> humanActions;
 	// State machine list
@@ -73,19 +95,37 @@ public class Human : MonoBehaviour {
 		humanMachines.Add (exploring);
 		humanMachines.Add (running);
 		humanMachines.Add (exiting);
+
 		exploreStates.Add (walking);
+		exploreStates.Add (getKey);
+		exploreStates.Add (storeExit);
+
 		runStates.Add (runAway);
 		runStates.Add (runScared);
+
 		exitStates.Add (goToExit);
+
 		expTransition.Add (walkToRun);
 		expTransition.Add (walkToExit);
 		expTransition.Add (walkToScared);
+
 		runTransition.Add (runToExit);
 		runTransition.Add (runToScared);
 		runTransition.Add (runToWalk);
 		runTransition.Add (scaredToWalk);
+
 		exitTransition.Add (exitToRun);
 		exitTransition.Add (exitToScared);
+
+		expAct.Add (new MoveToRoom1 ());
+		expAct.Add (new MoveToRoom2 ());
+		expAct.Add (new MoveToRoom3 ());
+		expAct.Add (new MoveToRoom4 ());
+
+		runAct.Add (new RunAway ());
+		runAct.Add (new RunScared ());
+
+		exitAct.Add (new MoveToExit ());
 
 		// Human HFSM
 		machine = new HStateMachine (humanMachines, exploring, humanActions);
@@ -96,10 +136,18 @@ public class Human : MonoBehaviour {
 		exiting = new StateMachine (goToExit, exitTransition, exitStates, 1);
 
 		// States in state machines
-		walking = new State ();
+		walking = new Patrol (expAct);
 		runAway = new State ();
 		runScared = new State ();
 		goToExit = new State ();
+		getKey = new State ();
+		storeExit = new State ();
+
+		goToExit.actions = exitAct;
+		runAway.actions.Add (new RunAway ());
+		runScared.actions.Add (new RunScared ());
+		getKey.actions.Add (new PickUpKey ());
+		storeExit.actions.Add (new StoreExit ());
 
 		// Transitions
 		walkToRun = new Transition (walking, runAway, exploring, running);
@@ -111,6 +159,8 @@ public class Human : MonoBehaviour {
 		scaredToWalk = new Transition (runScared, walking, running, exploring);
 		exitToRun = new Transition (goToExit, runAway, exiting, running);
 		exitToScared = new Transition (goToExit, runScared, exiting, running);
+		walkToKey = new Transition (walking, getKey, exploring, exploring);
+		walkToStore = new Transition (walking, storeExit, exploring, exploring);
 	}
 	
 	// Update is called once per frame
