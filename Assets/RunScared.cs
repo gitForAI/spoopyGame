@@ -3,8 +3,6 @@ using System.Collections;
 
 public class RunScared : Action {
 
-	public bool shouldMove = true;
-	public aStar path;
 	public Human human;
 
 	public override void Act(){
@@ -24,7 +22,8 @@ public class RunScared : Action {
 
 	// Use this for initialization
 	void Start () {
-	
+		shouldMove = false;
+		human = gameObject.GetComponent<Human> ();
 	}
 	
 	// Update is called once per frame

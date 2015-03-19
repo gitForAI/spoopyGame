@@ -50,6 +50,10 @@
      <Compile Include="Assets\Condition.cs" />
      <Compile Include="Assets\HStateMachine.cs" />
      <Compile Include="Assets\Human.cs" />
+     <Compile Include="Assets\InSameRoomExit.cs" />
+     <Compile Include="Assets\InSameRoomHuman.cs" />
+     <Compile Include="Assets\InSameRoomKey.cs" />
+     <Compile Include="Assets\InSameRoomMonster.cs" />
      <Compile Include="Assets\KeyCoord.cs" />
      <Compile Include="Assets\Monster.cs" />
      <Compile Include="Assets\MoveToExit.cs" />
@@ -58,7 +62,6 @@
      <Compile Include="Assets\MoveToRoom2.cs" />
      <Compile Include="Assets\MoveToRoom3.cs" />
      <Compile Include="Assets\MoveToRoom4.cs" />
-     <Compile Include="Assets\Patrol.cs" />
      <Compile Include="Assets\PickUpKey.cs" />
      <Compile Include="Assets\RunAway.cs" />
      <Compile Include="Assets\RunScared.cs" />

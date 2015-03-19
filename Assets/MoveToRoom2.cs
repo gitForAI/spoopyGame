@@ -3,16 +3,15 @@ using System.Collections;
 
 public class MoveToRoom2 : Action {
 
-	public bool shouldMove = true;
-	public aStar path;
-
 	public override void Act(){
-		path.move (5, 1);
+		
 	}
 
 	// Use this for initialization
 	void Start () {
-		path = gameObject.GetComponent<aStar> ();
+		x = (int)Mathf.Round (Random.Range (4, 6));
+		y = (int)Mathf.Round (Random.Range (0, 2));
+		shouldMove = true;
 	}
 	
 	// Update is called once per frame

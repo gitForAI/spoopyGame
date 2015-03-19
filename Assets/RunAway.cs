@@ -3,8 +3,6 @@ using System.Collections;
 
 public class RunAway : Action {
 
-	public bool shouldMove = true;
-	public aStar path;
 	public Monster monster;
 	public Human human;
 
@@ -39,9 +37,9 @@ public class RunAway : Action {
 
 	// Use this for initialization
 	void Start () {
-		path = gameObject.GetComponent<aStar> ();
 		monster = gameObject.GetComponent<Monster> ();
 		human = gameObject.GetComponent<Human> ();
+		shouldMove = false;
 	}
 	
 	// Update is called once per frame

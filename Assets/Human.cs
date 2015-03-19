@@ -19,8 +19,6 @@ public class Human : MonoBehaviour {
 	// Target where human should move to
 	public int targetX;
 	public int targetY;
-	// Action that holds where human should move to
-	public Action moveTo;
 	// Object reference to allow call to pathfinding algorithm
 	public aStar path;
 	// Hierarchical finite state machine to allow human to make 
@@ -39,7 +37,7 @@ public class Human : MonoBehaviour {
 	// Action list for exiting
 	public List<Action> exitAct;
 	// State for walking
-	public Patrol walking;
+	public State walking;
 	// State for running
 	public State runAway;
 	// State for afraid running
@@ -73,7 +71,7 @@ public class Human : MonoBehaviour {
 	// Transition from walk to store exit
 	public Transition walkToStore;
 	// Action list
-	public List<Action> humanActions;
+	public List<Action> humanActions = new List<Action>();
 	// State machine list
 	public List<StateMachine> humanMachines;
 	// Exploring state list
@@ -92,6 +90,46 @@ public class Human : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		path = gameObject.GetComponent<aStar> ();
+
+		// States in state machines
+		/*walking = new State ();
+		runAway = new State ();
+		runScared = new State ();
+		goToExit = new State ();
+		getKey = new State ();
+		storeExit = new State ();*/
+
+		goToExit.actions = exitAct;
+		runAway.actions.Add (new RunAway ());
+		runScared.actions.Add (new RunScared ());
+		getKey.actions.Add (new PickUpKey ());
+		storeExit.actions.Add (new StoreExit ());
+		
+		// State machines in HFSM
+		exploring = new StateMachine (walking, expTransition, exploreStates, 0);
+		running = new StateMachine (null, runTransition, runStates, 2);
+		exiting = new StateMachine (goToExit, exitTransition, exitStates, 1);
+		
+		// Transitions
+		walkToRun = new Transition (walking, runAway, exploring, running);
+		walkToExit = new Transition (walking, goToExit, exploring, exiting);
+		walkToScared = new Transition (walking, runScared, exploring, running);
+		runToExit = new Transition (runAway, goToExit, running, exiting);
+		runToScared = new Transition (runAway, runScared, running, running);
+		runToWalk = new Transition (runAway, walking, running, exploring);
+		scaredToWalk = new Transition (runScared, walking, running, exploring);
+		exitToRun = new Transition (goToExit, runAway, exiting, running);
+		exitToScared = new Transition (goToExit, runScared, exiting, running);
+		walkToKey = new Transition (walking, getKey, exploring, exploring);
+		walkToStore = new Transition (walking, storeExit, exploring, exploring);
+		
+		// Human HFSM
+		machine = new HStateMachine (humanMachines, exploring, gameObject);
+
+		exploring.parent = machine;
+		running.parent = machine;
+		exiting.parent = machine;
+
 		humanMachines.Add (exploring);
 		humanMachines.Add (running);
 		humanMachines.Add (exiting);
@@ -99,12 +137,17 @@ public class Human : MonoBehaviour {
 		exploreStates.Add (walking);
 		exploreStates.Add (getKey);
 		exploreStates.Add (storeExit);
+		walking.parent = exploring;
+		getKey.parent = exploring;
+		storeExit.parent = exploring;
 
 		runStates.Add (runAway);
 		runStates.Add (runScared);
+		runAway.parent = running;
+		runScared.parent = running;
 
 		exitStates.Add (goToExit);
-
+		goToExit.parent = exiting;
 		expTransition.Add (walkToRun);
 		expTransition.Add (walkToExit);
 		expTransition.Add (walkToScared);
@@ -126,41 +169,6 @@ public class Human : MonoBehaviour {
 		runAct.Add (new RunScared ());
 
 		exitAct.Add (new MoveToExit ());
-
-		// Human HFSM
-		machine = new HStateMachine (humanMachines, exploring, humanActions);
-
-		// State machines in HFSM
-		exploring = new StateMachine (walking, expTransition, exploreStates, 0);
-		running = new StateMachine (null, runTransition, runStates, 2);
-		exiting = new StateMachine (goToExit, exitTransition, exitStates, 1);
-
-		// States in state machines
-		walking = new Patrol (expAct);
-		runAway = new State ();
-		runScared = new State ();
-		goToExit = new State ();
-		getKey = new State ();
-		storeExit = new State ();
-
-		goToExit.actions = exitAct;
-		runAway.actions.Add (new RunAway ());
-		runScared.actions.Add (new RunScared ());
-		getKey.actions.Add (new PickUpKey ());
-		storeExit.actions.Add (new StoreExit ());
-
-		// Transitions
-		walkToRun = new Transition (walking, runAway, exploring, running);
-		walkToExit = new Transition (walking, goToExit, exploring, exiting);
-		walkToScared = new Transition (walking, runScared, exploring, running);
-		runToExit = new Transition (runAway, goToExit, running, exiting);
-		runToScared = new Transition (runAway, runScared, running, running);
-		runToWalk = new Transition (runAway, walking, running, exploring);
-		scaredToWalk = new Transition (runScared, walking, running, exploring);
-		exitToRun = new Transition (goToExit, runAway, exiting, running);
-		exitToScared = new Transition (goToExit, runScared, exiting, running);
-		walkToKey = new Transition (walking, getKey, exploring, exploring);
-		walkToStore = new Transition (walking, storeExit, exploring, exploring);
 	}
 	
 	// Update is called once per frame
@@ -180,49 +188,16 @@ public class Human : MonoBehaviour {
 		else{
 			y = 0;
 		}
-		// If boolean flag is set, move to target held by action
-		while(true){
-			// If no current machine, start at initial machine
-			if(machine.currMachine == null){
-				machine.currMachine = machine.initMachine;
-				// If no saved state at initial machine, go to initial state
-				if(machine.currMachine.savedState == null){
-					machine.currMachine.currState = machine.currMachine.initState;
-				}
-				// Otherwise go to saved state
-				else{
-					machine.currMachine.currState = machine.currMachine.savedState;
-				}
-			}
-			// If there is a triggered transition
-			if(machine.currMachine.triggered != null){
-				// Save the current state and set the current state to null
-				machine.currMachine.savedState = machine.currMachine.currState;
-				machine.currMachine.currState = null;
-				//StateMachine oldMachine = machine.currMachine;
-				// Set current machine to target machine in triggered transition
-				machine.currMachine = machine.currMachine.triggered.targetMachine;
-				// If no saved state in current machine, go to initial state
-				if(machine.currMachine.savedState == null){
-					machine.currMachine.currState = machine.currMachine.initState;
-				}
-				// Otherwise go to the saved state
-				else{
-					machine.currMachine.currState = machine.currMachine.savedState;
-				}
-				// Add the entry action and during action of the new state to the action list
-				humanActions.Add (machine.currMachine.currState.entryAction);
-				humanActions.Add (machine.currMachine.currState.duringAction);
-			}
-			// Otherwise, just do the during action of the current state
-			else{
-				humanActions.Add(machine.currMachine.currState.duringAction);
-			}
-
-			// If flag is set to move, move. 
-			if(shouldMove){
-
-			}
+		humanActions.Add (machine.update ());
+		Action newAction = humanActions [0];
+		humanActions.Remove (humanActions [0]);
+		// If flag is set to move, move. 
+		if(newAction.shouldMove){
+			path.move (newAction.x, newAction.y);
+			newAction.Act();
+		}
+		else{
+			newAction.Act();
 		}
 	}
 }
