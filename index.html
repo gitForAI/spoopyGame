@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title>Spooky Monster Game</title>
+<style>
+  body {background-color:#313131}
+  h1   {color:blue}
+  h2   {color:#CC0000}
+  p    {color:#B20000}
+</style>
+</head>
+<body>
+<h2 style="text-align: center;">Spooky Monster Game</h2>
+
+<p>
+What is "Spooky Monster Game"?
+<div id="what" style="display:none"> 
+<p>
+Spoopy Monster Game is the product of hours of experimentation and refinement. Designed to showcase pathfinding and behavior AI, this self-running game implements the A* pathfinding algorithm in combination with hierarchical finite state machines. In this state-of-the-art horror simulator, our team pits a human against a monster. The human’s goal is to find the key and exit the house, while the monster’s aim is to chase and capture the human.
+</p>
+</div> 
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('what') .style.display=='none') {document.getElementById('what') .style.display=''}else{document.getElementById('what') .style.display='none'}">Show/hide</button>
+</p>
+
+<p>
+Who was involved?
+<div id="who" style="display:none">
+<p>
+The development team consisted of three undergraduate students at American university. Leah Parent took the role of the implementer; writing the code and implementing the ideas brainstormed in group meetings. These meetings, as well as the task distribution and the bulk of our project reports were handled by the group coordinator, Evan White. Additional documentation included in the report and other sources such as the content of this webpage, was handled by the group documenter, James Nitsch.
+</p> 
+</div> 
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('who') .style.display=='none') {document.getElementById('who') .style.display=''}else{document.getElementById('who') .style.display='none'}">Show/hide</button>
+</p>
+
+
+<p>
+How was it made?
+<div id="how" style="display:none"> 
+<p>
+Spoopy monster game was developed from an even mix of old-fashioned whiteboard pseudocode, and the power of the Unity engine to bring it to life. 
+<p>
+<img src="http://i.imgur.com/x3u9rzD.png" alt="pseudocode" style="width:360px;height:444px">
+</p>
+<p>
+A project for the course “Artificial Intelligence” taught by Dr. Joshua McCoy at American University, Spoopy Monster game was a challenge to bring topics and algorithms discussed in class into a fully operational engine. The code is written entirely in C#, while built in Unity utilities provided an easy implementation of the 3d world the agents traverse. 
+</p>
+</p>
+</div> 
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('how') .style.display=='none') {document.getElementById('how') .style.display=''}else{document.getElementById('how') .style.display='none'}">Show/hide</button>
+</p>
+
+
+<p>
+Meet the characters!
+<div id="characters" style="display:none"> 
+<p>
+<img src="http://i.imgur.com/ZEClAdL.png" alt="Monster" style="width:196px;height:112px">
+<p>
+Monster: This terrifying beast is the main antagonist in our simulator. While he’s big and scary, he’s not very smart. His goals and desires consist solely of finding and chasing our human character when he is within range.
+</p>
+</p>
+<p>
+<img src="http://i.imgur.com/O3nznxA.png" alt="Human" style="width:202px;height:137px">
+<p>
+Human: The underdog in this predator-prey relationship, the human will have to rely on his AI to get him out of this situation! The human wanders the halls in search for the key, which can be used to open the door and escape the house. If the door is found while the human does not have the key, they will commit the location to memory and make a mad dash for the door as soon as the key is found. Otherwise, they must continue to search as they had for the key. The human also has various tactics to escape the monster which become more reckless the more terrified the human becomes. 
+</p>
+</p>
+</div> 
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('characters') .style.display=='none') {document.getElementById('characters') .style.display=''}else{document.getElementById('characters') .style.display='none'}">Show/hide</button>
+</p>
+
+<p>
+Links to project and reports
+<p>
+<a href="https://github.com/gitForAI/spoopyGame">Project on Github</a>
+</p>
+<p>
+<a href="url">Project report</a>
+</p>
+
+
+</body>
+</html>
