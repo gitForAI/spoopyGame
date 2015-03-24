@@ -29,15 +29,17 @@ public class State {
 			}
 		}
 		if(actions.Count > 0 && actNum < actions.Count){
+			Debug.Log("first if");
 			currAction = actions[actNum];
 			actNum ++;
 		}
-		else if(actions.Count > 0 && actNum == actions.Count){
-			actNum = 0;
-			currAction = actions[actNum];
-		}
+
 		else if(actions.Count == 0 && actions[0] != null){
+			Debug.Log ("third if");
 			currAction = actions[0];
+		}
+		if(actNum == actions.Count){
+			actNum = 0;
 		}
 		return currAction;
 	}

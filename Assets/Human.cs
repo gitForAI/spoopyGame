@@ -331,6 +331,21 @@ public class Human : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// Set x and y postion to value of square human is on;
+		// Make the units more readable and base them on the scale of 
+		//the floor
+		if (transform.position.x >= 10) {
+			x = (int)(Math.Floor ((double)(transform.position.x / 10)));
+		}
+		else{
+			x = 0;
+		}
+		if(transform.position.z >= 10){
+			y = (int)(Math.Floor ((double)(transform.position.z / 10)));
+		}
+		else{
+			y = 0;
+		}
 		if(timeToRun >= 3){
 			timeToRun = 0;
 			if(machine.currMachine != null){
@@ -342,8 +357,8 @@ public class Human : MonoBehaviour {
 			}
 
 			if(machine.currMachine != null && machine.currMachine.triggered != null && machine.currMachine.triggered.toTrigger is Escaped){
-				for(int i=0; i<generateSquares.xScale; i++){
-					for(int j=0; j<generateSquares.yScale; j++){
+				for(int i=0; i<generateSquares.xScale-1; i++){
+					for(int j=0; j<generateSquares.yScale-1; j++){
 						Debug.Log ("i = " + i + ", j = " + j);
 						if(generateSquares.grid[i,j].cost == 999){
 							generateSquares.grid[i,j].cost = 1;
@@ -352,21 +367,7 @@ public class Human : MonoBehaviour {
 				}
 			}
 			timeSinceMonster += Time.deltaTime;
-			// Set x and y postion to value of square human is on;
-			// Make the units more readable and base them on the scale of 
-			//the floor
-			if (transform.position.x >= 10) {
-				x = (int)(Math.Floor ((double)(x / 10)));
-			}
-			else{
-				x = 0;
-			}
-			if(transform.position.z >= 10){
-				y = (int)(Math.Floor ((double)(y / 10)));
-			}
-			else{
-				y = 0;
-			}
+
 
 			humanActions.Add (machine.update ());
 			Action newAction = humanActions [0];
@@ -377,6 +378,9 @@ public class Human : MonoBehaviour {
 				path.move (keyScript.x, keyScript.y);
 				Destroy(key);
 				keyFound = true;
+				walking.transitions.Remove(walkToKey);
+				expTransition.Remove (walkToKey);
+				runAwayTransition.Remove (scaredToKey);
 			}
 			else if(newAction is MoveToRoom1){
 				Debug.Log ("moving to room 1");
@@ -396,6 +400,7 @@ public class Human : MonoBehaviour {
 				Debug.Log ("moving to room 3");
 				int newX = (int)Mathf.Round (UnityEngine.Random.Range (4,6));
 				int newY = (int)Mathf.Round (UnityEngine.Random.Range (4,6));
+				Debug.Log ("newX = " + newX + ", newY = " + newY);
 				path.move (newX, newY);
 				roomNum = 3;
 			}

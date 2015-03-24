@@ -9,18 +9,22 @@ public class InSameRoomKey : Condition {
 	public KeyCoord keyScript;
 
 	public InSameRoomKey(){
-		person = GameObject.FindWithTag ("human");
-		humanScript = person.GetComponent<Human> ();
-		key = GameObject.FindWithTag ("key");
-		keyScript = key.GetComponent<KeyCoord> ();
+
 	}
 
 
 	public override bool test(){
+		person = GameObject.FindWithTag ("human");
+		humanScript = person.GetComponent<Human> ();
+		key = GameObject.FindWithTag ("key");
+		keyScript = key.GetComponent<KeyCoord> ();
+
 		int hX = humanScript.x;
 		int hY = humanScript.y;
 		int kX = keyScript.x;
 		int kY = keyScript.y;
+		Debug.Log ("human: x = " + hX + ", y = " + hY);
+		Debug.Log ("key: x = " + kX + ", y = " + kY);
 		return InSameRoom (hX, hY, kX, kY);
 	}
 
