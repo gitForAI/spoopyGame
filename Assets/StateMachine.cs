@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class StateMachine : MonoBehaviour {
+public class StateMachine {
 
 	public State initState;
 	public State savedState;
@@ -16,14 +16,14 @@ public class StateMachine : MonoBehaviour {
 	public HStateMachine parent;
 	public bool exists = true;
 
-	public StateMachine(State init, List<Transition> tran, //Transition enter, Transition exit,
+	public StateMachine(State init, //List<Transition> tran, //Transition enter, Transition exit,
 	    List<State> States, int lev){
 		initState = init;
 		//entryTransition = enter;
 		//exitTransition = exit;
 		states = States;
 		level = lev;
-		transitions = tran;
+		//transitions = tran;
 	}
 
 	// Use this for initialization

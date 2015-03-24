@@ -1,28 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class HStateMachine : MonoBehaviour {
+public class HStateMachine {
 
 	public List<StateMachine> machines;
 	public StateMachine currMachine;
 	public StateMachine initMachine;
 	public Action currAction;
-	public GameObject attachedTo;
 	public StateMachine savedMachine;
 
-	public HStateMachine(List<StateMachine> mach, StateMachine init, 
-	    GameObject attached){
+	public HStateMachine(List<StateMachine> mach, StateMachine init){
 		machines = mach;
 		initMachine = init;
-		attachedTo = attached;
 	}
 
 	public Action update(){
 		// If no current machine, start at initial machine
-		if(!currMachine.exists){
+		if(currMachine == null){
 			currMachine = initMachine;
 			// If no saved state at initial machine, go to initial state
-			if(!currMachine.savedState.exists){
+			if(currMachine.savedState == null){
 				currMachine.currState = currMachine.initState;
 			}
 			// Otherwise go to saved state

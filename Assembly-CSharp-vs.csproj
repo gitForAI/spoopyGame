@@ -48,12 +48,15 @@
   <ItemGroup>
      <Compile Include="Assets\Action.cs" />
      <Compile Include="Assets\Condition.cs" />
+     <Compile Include="Assets\Escaped.cs" />
+     <Compile Include="Assets\FoundKey.cs" />
      <Compile Include="Assets\HStateMachine.cs" />
      <Compile Include="Assets\Human.cs" />
      <Compile Include="Assets\InSameRoomExit.cs" />
      <Compile Include="Assets\InSameRoomHuman.cs" />
      <Compile Include="Assets\InSameRoomKey.cs" />
      <Compile Include="Assets\InSameRoomMonster.cs" />
+     <Compile Include="Assets\KeyAndExit.cs" />
      <Compile Include="Assets\KeyCoord.cs" />
      <Compile Include="Assets\Monster.cs" />
      <Compile Include="Assets\MoveToExit.cs" />
@@ -65,6 +68,7 @@
      <Compile Include="Assets\PickUpKey.cs" />
      <Compile Include="Assets\RunAway.cs" />
      <Compile Include="Assets\RunScared.cs" />
+     <Compile Include="Assets\SameMonsterAfraid.cs" />
      <Compile Include="Assets\Square.cs" />
      <Compile Include="Assets\State.cs" />
      <Compile Include="Assets\StateMachine.cs" />

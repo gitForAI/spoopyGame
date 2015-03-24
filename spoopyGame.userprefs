@@ -1,12 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MoveToExit.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\InSameRoomKey.cs">
     <Files>
-      <File FileName="Assets\Condition.cs" Line="15" Column="17" />
-      <File FileName="Assets\Human.cs" Line="200" Column="20" />
-      <File FileName="Assets\HStateMachine.cs" Line="38" Column="25" />
-      <File FileName="Assets\StateMachine.cs" Line="17" Column="28" />
-      <File FileName="Assets\MoveToExit.cs" Line="4" Column="35" />
+      <File FileName="Assets\Human.cs" Line="419" Column="10" />
+      <File FileName="Assets\HStateMachine.cs" Line="42" Column="32" />
+      <File FileName="Assets\StateMachine.cs" Line="26" Column="5" />
+      <File FileName="Assets\State.cs" Line="19" Column="5" />
+      <File FileName="Assets\Monster.cs" Line="30" Column="55" />
+      <File FileName="Assets\aStar.cs" Line="33" Column="4" />
+      <File FileName="Assets\InSameRoomMonster.cs" Line="22" Column="34" />
+      <File FileName="Assets\Condition.cs" Line="4" Column="23" />
+      <File FileName="Assets\InSameRoomKey.cs" Line="15" Column="45" />
+      <File FileName="Assets\KeyCoord.cs" Line="24" Column="55" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

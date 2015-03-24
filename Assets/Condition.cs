@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Condition : MonoBehaviour {
+public class Condition {
+
+	public Condition(){
+
+	}
 
 	public virtual bool test(){
 		return true;

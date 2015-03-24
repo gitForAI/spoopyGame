@@ -8,30 +8,29 @@ public class aStar : MonoBehaviour {
 	public List<openListNode> openList = new List<openListNode>();
 	public List<List<closedListNode>> closedList = new 
 		List<List<closedListNode>>();
-	public GameObject character;
+	//public GameObject character;
 	public int startX;
 	public int startY;
 
 	// Use this for initialization
 	void Start () {
-		character = gameObject;
-		if (character.transform.position.x >= 10) {
-			startX = (int)(Math.Floor ((double)(character.transform.position.x / 10)));
-		}
-		else{
-			startX = 0;
-		}
-		if(character.transform.position.z >= 10){
-			startY = (int)(Math.Floor ((double)(character.transform.position.z / 10)));
-		}
-		else{
-			startY = 0;
-		}
+
 	}
 
 	// Update is called once per frame
 	void Update () {
-
+		if (gameObject.transform.position.x >= 10) {
+			startX = (int)(Math.Floor ((double)(gameObject.transform.position.x / 10)));
+		}
+		else{
+			startX = 0;
+		}
+		if(gameObject.transform.position.z >= 10){
+			startY = (int)(Math.Floor ((double)(gameObject.transform.position.z / 10)));
+		}
+		else{
+			startY = 0;
+		}
 	}
 
 	public void move(int x, int y){
@@ -43,7 +42,7 @@ public class aStar : MonoBehaviour {
 			//of each node in the path list.
 			foreach (var node in path) {
 				// Changes gameobject's position to position of node.
-				character.transform.position = new Vector3(
+				gameObject.transform.position = new Vector3(
 					(float)node.currSquare.x * 10, (float)transform.position.y, 
 					(float)node.currSquare.y * 10);
 			}

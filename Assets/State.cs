@@ -5,18 +5,24 @@ public class State {
 
 	public Action entryAction;
 	public Action exitAction;
-	public List<Action> actions;
+	public List<Action> actions = new List<Action>();
 	public Transition entryTransition;
 	public Transition exitTransition;
-	public List<Transition> transitions;
+	public List<Transition> transitions = new List<Transition>();
 	public Action currAction;
 	public int actNum = 0;
 	public StateMachine parent;
 	public bool exists = true;
 
+	public State(List<Action> moves){//, List<Transition> tran){
+		actions = moves;
+		//transitions = tran;
+	}
+
 	public Action update(){
 		foreach(var transition in transitions){
 			if(transition.toTrigger.test ()){
+				Debug.Log ("triggered");
 				parent.triggered = transition;
 				parent.isTriggered = true;
 				return currAction;
@@ -30,7 +36,7 @@ public class State {
 			actNum = 0;
 			currAction = actions[actNum];
 		}
-		else if(actions.Count == 0){
+		else if(actions.Count == 0 && actions[0] != null){
 			currAction = actions[0];
 		}
 		return currAction;

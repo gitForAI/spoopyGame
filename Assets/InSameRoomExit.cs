@@ -6,6 +6,11 @@ public class InSameRoomExit : Condition {
 	public GameObject person;
 	public Human humanScript;
 
+	public InSameRoomExit(){
+		person = GameObject.FindWithTag ("human");
+		humanScript = person.GetComponent<Human>();
+	}
+
 	public override bool test(){
 		int hX = humanScript.x;
 		int hY = humanScript.y;
@@ -14,8 +19,7 @@ public class InSameRoomExit : Condition {
 
 	// Use this for initialization
 	void Start () {
-		person = GameObject.Find ("human");
-		humanScript = person.GetComponent<Human>();
+
 	}
 	
 	// Update is called once per frame

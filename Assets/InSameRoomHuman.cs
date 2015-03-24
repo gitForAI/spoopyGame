@@ -3,21 +3,29 @@ using System.Collections;
 
 public class InSameRoomHuman : Condition {
 
-	public Human human;
-	public Monster monster;
+	public GameObject person;
+	public Human humanScript;
+	public GameObject monster;
+	public Monster monsterScript;
+
+	public InSameRoomHuman(){
+		person = GameObject.FindWithTag ("human");
+		humanScript = person.GetComponent<Human> ();
+		monster = GameObject.FindWithTag ("monster");
+		monsterScript = monster.GetComponent<Monster> ();
+	}
 
 	public override bool test(){
-		int hX = human.x;
-		int hY = human.y;
-		int mX = monster.x;
-		int mY = monster.y;
+		int hX = humanScript.x;
+		int hY = humanScript.y;
+		int mX = monsterScript.x;
+		int mY = monsterScript.y;
 		return InSameRoom (hX, hY, mX, mY);
 	}
 
 	// Use this for initialization
 	void Start () {
-		human = gameObject.GetComponent<Human> ();
-		monster = gameObject.GetComponent<Monster> ();
+
 	}
 	
 	// Update is called once per frame

@@ -8,6 +8,13 @@ public class InSameRoomKey : Condition {
 	public GameObject key;
 	public KeyCoord keyScript;
 
+	public InSameRoomKey(){
+		person = GameObject.FindWithTag ("human");
+		humanScript = person.GetComponent<Human> ();
+		key = GameObject.FindWithTag ("key");
+		keyScript = key.GetComponent<KeyCoord> ();
+	}
+
 
 	public override bool test(){
 		int hX = humanScript.x;
@@ -19,10 +26,7 @@ public class InSameRoomKey : Condition {
 
 	// Use this for initialization
 	void Start () {
-		person = GameObject.Find ("human");
-		humanScript = person.GetComponent<Human> ();
-		key = GameObject.Find ("key");
-		keyScript = key.GetComponent<KeyCoord> ();
+
 	}
 	
 	// Update is called once per frame

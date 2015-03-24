@@ -15,13 +15,13 @@ public class KeyCoord : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (transform.position.x >= 10) {
-			x = (int)(Math.Floor ((double)(x / 10)));
+			x = (int)(Math.Floor ((double)(transform.position.x / 10)));
 		}
 		else{
 			x = 0;
 		}
 		if(transform.position.z >= 10){
-			y = (int)(Math.Floor ((double)(y / 10)));
+			y = (int)(Math.Floor ((double)(transform.position.z / 10)));
 		}
 		else{
 			y = 0;
