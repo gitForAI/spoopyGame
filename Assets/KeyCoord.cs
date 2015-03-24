@@ -2,8 +2,10 @@
 using System.Collections;
 using System;
 
+// Allows outside objects to access key's coordinates
 public class KeyCoord : MonoBehaviour {
 
+	// Key's x and y
 	public int x;
 	public int y;
 
@@ -14,6 +16,7 @@ public class KeyCoord : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// Find x and y of key, make readable based on floor gridding
 		if (transform.position.x >= 10) {
 			x = (int)(Math.Floor ((double)(transform.position.x / 10)));
 		}

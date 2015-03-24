@@ -30,17 +30,19 @@ public class HStateMachine {
 		// If there is a triggered transition
 		if(currMachine.isTriggered){
 			Debug.Log ("hsm triggered: " + currMachine.triggered);
-			savedMachine = currMachine;
+			// Save the state of the current machine
 			currMachine.savedState = currMachine.currState;
+			// Save the current machine
+			savedMachine = currMachine;
+			// Change current machine to machine targeted by transition
 			currMachine = savedMachine.triggered.targetMachine;
+			// Go to transition's target state
 			currMachine.currState = savedMachine.triggered.targetState;
 
-			savedMachine.triggered.exists = false;
-			savedMachine.currState.exists = false;
-			savedMachine.exists = true;
+			// Update current action
 			currAction = currMachine.currState.update ();
 		}
-		// Otherwise, just do the during action of the current state
+		// Otherwise, update the state again
 		else{
 			currAction = currMachine.currState.update ();
 		}

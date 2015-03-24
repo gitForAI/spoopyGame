@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Empty parent class for actions to execute
 public class Action {
 
 	// Use this for initialization

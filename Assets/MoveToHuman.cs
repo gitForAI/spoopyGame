@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+// Subclass for move monster to human
 public class MoveToHuman : Action {
 
 	// Use this for initialization
 	void Start () {
-		//script = gameObject.GetComponent<Human>();
-		//x = script.exitNode.x;
-		//y = script.exitNode.y;
-		//shouldMove = true;
+
 	}
 	
 	// Update is called once per frame

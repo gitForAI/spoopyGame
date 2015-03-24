@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Subclass for human to run away while afraid
 public class RunScared : Action {
 
 	// Use this for initialization

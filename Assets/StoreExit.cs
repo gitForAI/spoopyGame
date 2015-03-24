@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Subclass for human to store exit
 public class StoreExit : Action {
 
 	// Use this for initialization

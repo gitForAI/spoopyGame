@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Subclass for human to pick up key
 public class PickUpKey : Action {
 
 	// Use this for initialization

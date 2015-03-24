@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Subclass to move object to room 4
 public class MoveToRoom4 : Action {
 
 	// Use this for initialization
