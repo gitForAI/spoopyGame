@@ -29,6 +29,7 @@ public class HStateMachine {
 		}
 		// If there is a triggered transition
 		if(currMachine.isTriggered){
+			Debug.Log ("hsm triggered: " + currMachine.triggered);
 			savedMachine = currMachine;
 			currMachine.savedState = currMachine.currState;
 			currMachine = savedMachine.triggered.targetMachine;

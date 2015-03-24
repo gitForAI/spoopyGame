@@ -5,17 +5,27 @@ public class Escaped : Condition {
 
 	public GameObject person;
 	public Human humanScript;
+	public GameObject monster;
+	public Monster monsterScript;
 
 	public Escaped(){
 		person = GameObject.FindWithTag ("human");
 		humanScript = person.GetComponent<Human> ();
+		monster = GameObject.FindWithTag ("monster");
+		monsterScript = monster.GetComponent<Monster> ();
 	}
 
 	public override bool test(){
-		if(humanScript.timeSinceMonster >= 5){
-			return true;
+		int hX = humanScript.x;
+		int hY = humanScript.y;
+		int mX = monsterScript.x;
+		int mY = monsterScript.y;
+		if(InSameRoom(hX, hY, mX, mY)){
+			Debug.Log ("not escape");
+			return false;
 		}
-		return false;
+		Debug.Log ("escape");
+		return true;
 	}
 
 	// Use this for initialization

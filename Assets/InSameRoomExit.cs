@@ -12,9 +12,7 @@ public class InSameRoomExit : Condition {
 	}
 
 	public override bool test(){
-		int hX = humanScript.x;
-		int hY = humanScript.y;
-		return InSameRoom (hX, hY, 1, 7);
+		return humanScript.roomNum == 4;
 	}
 
 	// Use this for initialization

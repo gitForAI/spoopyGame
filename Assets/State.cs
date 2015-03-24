@@ -22,20 +22,20 @@ public class State {
 	public Action update(){
 		foreach(var transition in transitions){
 			if(transition.toTrigger.test ()){
-				Debug.Log ("triggered");
+				Debug.Log (transition.toTrigger);
 				parent.triggered = transition;
 				parent.isTriggered = true;
-				return currAction;
+				parent.currState = transition.targetState;
+				parent.parent.currMachine = transition.targetMachine;
+				return transition.targetState.actions[transition.targetState.actNum];
 			}
 		}
 		if(actions.Count > 0 && actNum < actions.Count){
-			Debug.Log("first if");
 			currAction = actions[actNum];
 			actNum ++;
 		}
 
 		else if(actions.Count == 0 && actions[0] != null){
-			Debug.Log ("third if");
 			currAction = actions[0];
 		}
 		if(actNum == actions.Count){

@@ -14,7 +14,7 @@ public class Human : MonoBehaviour {
 	public int y;
 
 	// Room number
-	int roomNum = 1;
+	public int roomNum = 1;
 
 	// Stores exit node
 	Square exitNode;
@@ -154,6 +154,34 @@ public class Human : MonoBehaviour {
 	public float timeSinceMonster = 0;
 	public float timeToRun = 0;
 
+	public void room1Move(){
+		int newX = (int)Mathf.Round (UnityEngine.Random.Range(0,2));
+		int newY = (int)Mathf.Round (UnityEngine.Random.Range (0,2));
+		path.move (newX, newY);
+		roomNum = 1;
+	}
+
+	public void room2Move(){
+		int newX = (int)Mathf.Round (UnityEngine.Random.Range (4,6));
+		int newY = (int)Mathf.Round (UnityEngine.Random.Range (0,2));
+		path.move (newX, newY);
+		roomNum = 2;
+	}
+
+	public void room3Move(){
+		int newX = (int)Mathf.Round (UnityEngine.Random.Range (4, 6));
+		int newY = (int)Mathf.Round (UnityEngine.Random.Range (4, 6));
+		path.move (newX, newY);
+		roomNum = 3;
+	}
+
+	public void room4Move(){
+		int newX = (int)Mathf.Round (UnityEngine.Random.Range (0,2));
+		int newY = (int)Mathf.Round (UnityEngine.Random.Range (4,6));
+		path.move (newX, newY);
+		roomNum = 4;
+	}
+
 	// Use this for initialization
 	void Start () {
 		try{
@@ -228,7 +256,7 @@ public class Human : MonoBehaviour {
 			
 			// State machines in HFSM
 			exploring = new StateMachine (walking, exploreStates, 0);
-			running = new StateMachine (null, runStates, 2);
+			running = new StateMachine (runAway, runStates, 2);
 			exiting = new StateMachine (goToExit, exitStates, 1);
 
 			// Transitions
@@ -325,7 +353,7 @@ public class Human : MonoBehaviour {
 			goToExit.parent = exiting;
 		}
 		catch(Exception e){
-			Debug.Log (e);
+			Debug.Log ("exception " + e);
 		}
 	}
 	
@@ -359,7 +387,6 @@ public class Human : MonoBehaviour {
 			if(machine.currMachine != null && machine.currMachine.triggered != null && machine.currMachine.triggered.toTrigger is Escaped){
 				for(int i=0; i<generateSquares.xScale-1; i++){
 					for(int j=0; j<generateSquares.yScale-1; j++){
-						Debug.Log ("i = " + i + ", j = " + j);
 						if(generateSquares.grid[i,j].cost == 999){
 							generateSquares.grid[i,j].cost = 1;
 						}
@@ -371,7 +398,7 @@ public class Human : MonoBehaviour {
 
 			humanActions.Add (machine.update ());
 			Action newAction = humanActions [0];
-			Debug.Log (newAction);
+			Debug.Log ("action " + newAction);
 			humanActions.Remove (humanActions [0]);
 
 			if(newAction is PickUpKey){
@@ -384,32 +411,19 @@ public class Human : MonoBehaviour {
 			}
 			else if(newAction is MoveToRoom1){
 				Debug.Log ("moving to room 1");
-				int newX = (int)Mathf.Round (UnityEngine.Random.Range(0,2));
-				int newY = (int)Mathf.Round (UnityEngine.Random.Range (0,2));
-				path.move (newX, newY);
-				roomNum = 1;
+				room1Move ();
 			}
 			else if(newAction is MoveToRoom2){
 				Debug.Log ("moving to room 2");
-				int newX = (int)Mathf.Round (UnityEngine.Random.Range (4,6));
-				int newY = (int)Mathf.Round (UnityEngine.Random.Range (0,2));
-				path.move (newX, newY);
-				roomNum = 2;
+				room2Move ();
 			}
 			else if(newAction is MoveToRoom3){
 				Debug.Log ("moving to room 3");
-				int newX = (int)Mathf.Round (UnityEngine.Random.Range (4,6));
-				int newY = (int)Mathf.Round (UnityEngine.Random.Range (4,6));
-				Debug.Log ("newX = " + newX + ", newY = " + newY);
-				path.move (newX, newY);
-				roomNum = 3;
+				room3Move();
 			}
 			else if(newAction is MoveToRoom4){
 				Debug.Log ("moving to room 4");
-				int newX = (int)Mathf.Round (UnityEngine.Random.Range (0,2));
-				int newY = (int)Mathf.Round (UnityEngine.Random.Range (4,6));
-				path.move (newX, newY);
-				roomNum = 4;
+				room4Move();
 			}
 			else if(newAction is MoveToExit){
 				path.move (1,7);
@@ -417,7 +431,8 @@ public class Human : MonoBehaviour {
 			else if(newAction is RunAway){
 				int monsterX = monsterScript.x;
 				int monsterY = monsterScript.y;
-				Debug.Log ("running away. human x = " + x + ", y = " + y + ", monster x = " + monsterX + ", y = " + monsterY);
+				Debug.Log ("running away");
+				timeSinceMonster = 0;
 				if(monsterX - 1 >= 0){
 					generateSquares.grid[monsterX - 1, monsterY].cost = 999;
 				}
@@ -432,19 +447,20 @@ public class Human : MonoBehaviour {
 				}
 
 				if(roomNum == 1){
-					humanActions.Add (new MoveToRoom2());
+					room2Move();
 				}
 				else if(roomNum == 2){
-					humanActions.Add (new MoveToRoom3());
+					room3Move();
 				}
 				else if(roomNum == 3){
-					humanActions.Add (new MoveToRoom4());
+					room4Move();
 				}
 				else{
-					humanActions.Add (new MoveToRoom1());
+					room1Move();
 				}
 			}
 			else if(newAction is RunScared){
+				timeSinceMonster = 0;
 				if(roomNum == 1){
 					humanActions.Add (new MoveToRoom2());
 				}
